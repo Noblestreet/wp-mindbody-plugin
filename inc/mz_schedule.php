@@ -65,15 +65,16 @@ function mZ_mindbody_show_schedule( $atts, $account=0 )
 	//Cache the mindbody call for 24 hours
 	// TODO make cache timeout configurable.
 	set_transient($mz_schedule_cache_two, $mz_schedule_data_two, 60 * 60 * 24);
+	$mz_schedule_data_secondary = get_transient( $mz_schedule_cache_two );
 	// END caching
-	mz_pr($mz_schedule_data);
-	mz_pr("LOVE RIVKA");
-	mz_pr($mz_schedule_data_two);
+	//mz_pr($mz_schedule_data);
+	//mz_pr("LOVE RIVKA");
+	//mz_pr($mz_schedule_data_secondary);
 	$return = '';
 
-foreach (array($mz_schedule_data, $mz_schedule_data_two) as $schedule_data) {
-	$return .= mz_display_schedule($schedule_data, $mb, $grid, $filter, $type, $return, $time_format, $location, $hide, $mz_date, $date_format);
-}
+	$return .= mz_display_schedule($mz_schedule_data, $mb, $grid, $filter, $type, $return, $time_format, 2, $hide, $mz_date, $date_format);
+	$return .= mz_display_schedule($mz_schedule_data_secondary, $mb, $grid, $filter, $type, $return, $time_format, $location, $hide, $mz_date, $date_format);
+	
 	return $return;
 
 }//EOF mZ_show_schedule
